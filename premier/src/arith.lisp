@@ -210,7 +210,6 @@
 
 ; Обёртки
 
-
 (defun parse-int (input-string &optional (start 0) (end (length input-string)))
   (handler-case (parse-integer input-string :start start :end end)
     (error (err)
