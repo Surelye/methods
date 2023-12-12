@@ -77,12 +77,6 @@
         (format t "~%Результат вычисления быстрого преобразования Фурье для заданного многочлена:~2%~a~%" res))))
 
 
-
-
-
-
-
-
 (defun schonhage-strassen-machinerie (&optional (f-poly) (s-poly))
   (let* ((old-f-len (length f-poly)) (old-s-len (length s-poly))
          (sum-lens (+ old-f-len old-s-len)) (f-len old-f-len)
