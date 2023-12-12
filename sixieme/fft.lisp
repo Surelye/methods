@@ -40,11 +40,11 @@
 
 (defun fft (poly &optional mode)
   (when (not (vectorp poly)) (return-from fft))
-  (let ((i2pi (* 2 pi #C(0 1))) len root roots alpha beta (divisor 1))
+  (let ((ipi (* pi #C(0 1))) len root roots alpha beta (divisor 1))
     (setq poly (append-zeros poly) len (length poly)
           poly (rotate poly len))
     (do ((j 0 (1+ j))) ((= (round (log len 2)) j))
-     (setq root (exp (/ i2pi (ash 1 (1+ j)))))
+      (setq root (exp (/ ipi (ash 1 j))))
       (when (equal 'INV mode) (setq root (/ root)))
       (setq roots (map 'vector #'(lambda (pow) (expt root pow))
                        (loop for pow from 0 to (1- (ash 1 j)) collect pow)))
@@ -59,7 +59,7 @@
 
 
 (defun fft-handler (&optional mode)
-  (format t "~%Введите коэффициенты многочлена от старшего к младшему через пробел (для ввода комплексного числа: #c(i j)):~2%Вводите: ")
+  (format t "~%Введите коэффициенты многочлена от младшего к старшему через пробел (для ввода комплексного числа: #c(i j)):~2%Вводите: ")
   (let (input clear-input len-input cur res)
     (setq input (uiop:split-string (read-line) :separator " ")
           len-input (length input))
@@ -77,7 +77,7 @@
         (format t "~%Результат вычисления быстрого преобразования Фурье для заданного многочлена:~2%~a~%" res))))
 
 
-(defun schonhage-strassen-machinerie (&optional (f-poly) (s-poly))
+(defun schonhage-strassen-machinerie (&optional f-poly s-poly)
   (let* ((old-f-len (length f-poly)) (old-s-len (length s-poly))
          (sum-lens (+ old-f-len old-s-len)) (f-len old-f-len)
          (s-len old-s-len) res fft-f fft-s
