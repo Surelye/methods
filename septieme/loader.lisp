@@ -5,4 +5,4 @@
 (load "src/gauss-lattice-reduction.lisp")
 (load "src/lll.lisp")
 (load "src/linear-programming.lisp")
-;(load "src/lattices.lisp")
+(load "src/lattices.lisp")
